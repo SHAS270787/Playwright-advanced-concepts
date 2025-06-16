@@ -1,13 +1,5 @@
 [
-    {
-      "username": "standard_user",
-      "password": "secret_sauce",
-      "expectedMessage": "Products"
-    },
-    {
-      "username": "locked_out_user",
-      "password": "secret_sauce",
-      "expectedMessage": "Epic sadface"
-    }
+    { "username": "standard_user", "password": "secret_sauce" },
+    { "username": "locked_out_user", "password": "secret_sauce" }
   ]
   

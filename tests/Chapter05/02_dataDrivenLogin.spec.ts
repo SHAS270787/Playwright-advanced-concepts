@@ -1,6 +1,14 @@
 import { test, expect } from '@playwright/test';
 import * as loginData from './Data/test-data.json';
 
+interface LoginData {
+  for (: anyconst dataSet: any of: any loginDataTyped: any){
+  password: string;
+  expectedMessage: string;
+}
+
+const loginDataTyped: LoginData[] = loginData as LoginData[];
+
 test.describe('Data-driven login tests', () => {
   for (const dataSet of loginData) {
     test(`Login test for user: ${dataSet.username}`, async ({ page }) => {

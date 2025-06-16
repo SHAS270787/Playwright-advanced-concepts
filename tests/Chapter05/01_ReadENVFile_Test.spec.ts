@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: './tests/Chapter05/.env' });
 
 test('Use ENV variable on a demo page', async ({ page }) => {
   // Go to forgot password page
