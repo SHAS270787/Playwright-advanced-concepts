@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import * as dotenv from 'dotenv';
-import { GoogleSearchPage } from './pages/GoogleSearchPage';
+import { GoogleSearchPage } from './GoogleSearchPOM.spec';
 
 dotenv.config();
 
