@@ -1,10 +1,11 @@
-import { Page, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class LoginPage {
   constructor(private page: Page) {}
 
-  async goto(url: string) {
-    await this.page.goto(url);
+  async goto() {
+    console.log('Navigating to URL:', process.env.BASE_URL);
+    await this.page.goto(process.env.BASE_URL || 'https://www.saucedemo.com');
   }
 
   async login(username: string, password: string) {
@@ -13,11 +14,7 @@ export class LoginPage {
     await this.page.click('#login-button');
   }
 
-  async assertLoginSuccess() {
-    await expect(this.page.locator('.inventory_list')).toBeVisible();
-  }
-
-  async assertLoginError() {
-    await expect(this.page.locator('[data-test="error"]')).toBeVisible();
+  async getTitleText() {
+    return this.page.locator('.title');
   }
 }

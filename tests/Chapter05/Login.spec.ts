@@ -1,24 +1,7 @@
-import { test } from '@playwright/test';
-import { LoginPage } from './pages/LoginPage';
-import * as dotenv from 'dotenv';
-import testData from './Data/test-data.json';
+import { test, expect } from './fixtures/custom-fixtures';
 
-dotenv.config();
-
-test.describe('Login using POM + .env + JSON data', () => {
-  for (const data of testData) {
-    test(`Login test for ${data.username}`, async ({ page }) => {
-      const login = new LoginPage(page);
-      const baseURL = process.env.BASE_URL || 'https://www.saucedemo.com';
-
-      await login.goto(baseURL);
-      await login.login(data.username, data.password);
-
-      if (data.username === 'standard_user') {
-        await login.assertLoginSuccess();
-      } else {
-        await login.assertLoginError();
-      }
-    });
-  }
+test('Login using POM + fixtures + JSON + .env', async ({ loginPage, testData }) => {
+  await loginPage.goto();
+  await loginPage.login(testData.username, testData.password);
+  await expect(await loginPage.getTitleText()).toHaveText(testData.expectedText);
 });

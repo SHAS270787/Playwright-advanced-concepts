@@ -1,28 +1,33 @@
-import { test, expect } from '@playwright/test';
-import * as loginData from './Data/test-data.json';
+import test, { expect } from "@playwright/test";
 
 interface LoginData {
-  for (: anyconst dataSet: any of: any loginDataTyped: any){
+  username: string;
   password: string;
   expectedMessage: string;
 }
 
-const loginDataTyped: LoginData[] = loginData as LoginData[];
+const loginData: LoginData[] = [
+  {
+    username: 'user1',
+    password: 'wrongpass',
+    expectedMessage: 'Invalid credentials'
+  },
+  {
+    username: 'user2',
+    password: 'correctpass',
+    expectedMessage: 'Login successful'
+  }
+];
 
 test.describe('Data-driven login tests', () => {
-  for (const dataSet of loginData) {
-    test(`Login test for user: ${dataSet.username}`, async ({ page }) => {
-      await page.goto('/');
-
-      await page.fill('#user-name', dataSet.username);
-      await page.fill('#password', dataSet.password);
-      await page.click('#login-button');
-
-      if (dataSet.expectedMessage === 'Products') {
-        await expect(page.locator('.title')).toHaveText('Products');
-      } else {
-        await expect(page.locator('[data-test="error"]')).toContainText(dataSet.expectedMessage);
-      }
+  for (const data of loginData) {
+    test(`Login test for user: ${data.username}`, async ({ page }) => {
+      // Example usage
+      await page.goto('https://example.com/login');
+      await page.fill('#username', data.username);
+      await page.fill('#password', data.password);
+      await page.click('#loginBtn');
+      await expect(page.locator('#message')).toHaveText(data.expectedMessage);
     });
   }
 });
